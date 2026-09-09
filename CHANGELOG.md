@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-09
+
 ### Changed
 - Docs and messages no longer claim every GizmoSQL session defaults to the `memory` catalog; the default is
   the database the server was started with, and the loader only refuses the ephemeral `memory`/`temp` ones.

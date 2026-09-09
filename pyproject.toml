@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gizmosql-pdf-loader"
+version = "0.1.0"
+description = "Load PDF files (bytes + extracted page text + metadata) into a GizmoSQL server over Arrow Flight SQL / ADBC."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "GizmoData", email = "support@gizmodata.com" }]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Database",
+]
+dependencies = [
+    "adbc-driver-gizmosql>=2.0.13",
+    "pyarrow>=18.0.0",
+    "pymupdf>=1.26.0",
+    "click>=8.1",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "build", "ruff"]
+
+[project.scripts]
+gizmosql-pdf-loader = "gizmosql_pdf_loader.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/gizmodata/gizmosql-pdf-loader"
+Repository = "https://github.com/gizmodata/gizmosql-pdf-loader"
+Issues = "https://github.com/gizmodata/gizmosql-pdf-loader/issues"
+Changelog = "https://github.com/gizmodata/gizmosql-pdf-loader/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gizmosql_pdf_loader"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/", "tests/", "examples/", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]

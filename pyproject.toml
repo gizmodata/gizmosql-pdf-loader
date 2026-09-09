@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gizmosql-pdf-loader"
-version = "0.1.1"
+version = "0.1.2"
 description = "Load PDF files (bytes + extracted page text + metadata) into a GizmoSQL server over Arrow Flight SQL / ADBC."
 readme = "README.md"
 license = "Apache-2.0"

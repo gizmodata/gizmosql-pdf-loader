@@ -50,8 +50,9 @@ GIZMOSQL_TLS_SKIP_VERIFY=false
 GIZMOSQL_MAX_MESSAGE_SIZE_BYTES=67108864   # client-side gRPC limit (driver default is 16 MiB)
 ```
 
-Always set a catalog: GizmoSQL sessions default to the in-memory `memory` catalog, and the loader refuses to
-load into it.
+Set the catalog explicitly. A session's default catalog is whatever database the server was started with,
+which on some deployments is the ephemeral in-memory `memory` catalog; the loader refuses to load into `memory`
+or `temp` so tables can't silently land somewhere that vanishes on restart.
 
 ## Use
 
@@ -218,8 +219,8 @@ and logs what it decides:
 
 Loading the `fts` extension needs the GizmoSQL **admin** role; *querying* an existing index does not. The
 index is a snapshot: `load` refreshes it after loading new documents, and `gizmosql-pdf-loader index` rebuilds
-it on demand. If the copy catalog is the server's in-memory `memory` catalog, the copy and index vanish on a
-server restart, so run `index` again afterwards (or point `--fts-catalog` at an attached DuckDB file).
+it on demand. If the copy catalog is the server's in-memory `memory` catalog (as in the example below), the copy
+and index vanish on a server restart, so run `index` again afterwards (or point `--fts-catalog` at an attached DuckDB file).
 
 ```shell
 # DuckLake target: opt in to a copy-based index in the shared in-memory catalog

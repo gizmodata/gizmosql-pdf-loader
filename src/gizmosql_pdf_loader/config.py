@@ -73,8 +73,9 @@ class GizmoSQLSettings:
 def resolve_target_catalog(conn: gizmosql.Connection, catalog: str | None) -> str:
     """Return the catalog to load into, refusing the server's ephemeral in-memory catalogs.
 
-    GizmoSQL sessions default to the ``memory`` catalog, so loading without an explicit
-    catalog would silently put every table somewhere that vanishes on restart.
+    A session's default catalog is whatever database the server was started with; on some
+    deployments that is the in-memory ``memory`` catalog, and loading there without noticing
+    would put every table somewhere that vanishes on restart.
     """
     if catalog:
         return catalog
@@ -83,7 +84,7 @@ def resolve_target_catalog(conn: gizmosql.Connection, catalog: str | None) -> st
         current = cur.fetchone()[0]
     if current in EPHEMERAL_CATALOGS:
         raise ValueError(
-            f"The session's current catalog is the ephemeral '{current}' catalog. "
-            "Pass --catalog (or set GIZMOSQL_CATALOG) to a persistent catalog."
+            f"The session's default catalog on this server is the ephemeral '{current}' catalog. "
+            "Pass --catalog (or set GIZMOSQL_CATALOG) to name a persistent catalog."
         )
     return current

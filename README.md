@@ -1,5 +1,12 @@
 # gizmosql-pdf-loader
 
+[<img src="https://img.shields.io/badge/GitHub-gizmodata%2Fgizmosql--pdf--loader-blue.svg?logo=Github">](https://github.com/gizmodata/gizmosql-pdf-loader)
+[<img src="https://img.shields.io/badge/GitHub-gizmodata%2Fgizmosql--public-blue.svg?logo=Github">](https://github.com/gizmodata/gizmosql-public)
+[![gizmosql-pdf-loader-ci](https://github.com/gizmodata/gizmosql-pdf-loader/actions/workflows/ci.yml/badge.svg)](https://github.com/gizmodata/gizmosql-pdf-loader/actions/workflows/ci.yml)
+[![Supported Python Versions](https://img.shields.io/pypi/pyversions/gizmosql-pdf-loader)](https://pypi.org/project/gizmosql-pdf-loader/)
+[![PyPI version](https://badge.fury.io/py/gizmosql-pdf-loader.svg)](https://badge.fury.io/py/gizmosql-pdf-loader)
+[![PyPI Downloads](https://img.shields.io/pepy/dt/gizmosql-pdf-loader.svg)](https://pypi.org/project/gizmosql-pdf-loader/)
+
 Load PDF files into a [GizmoSQL](https://gizmodata.com/gizmosql) server over Arrow Flight SQL / ADBC so that
 SQL clients (and GizmoSQL-connected MCP servers) can **search the text** of product manuals and **download the
 original files**.

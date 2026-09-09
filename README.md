@@ -182,6 +182,20 @@ you only want the metadata or the text.
 SELECT file_name, page_number, score, snippet
   FROM my_lake.pdf_docs.search_pages_ranked('hydraulic pump relief valves', top_k := 10);
 
+-- Ranked search by hand: call the index's match_bm25 macro directly. The index schema is
+-- fts_<schema>_document_pages in the catalog that holds the indexed table: the target catalog
+-- for a DuckDB-file target (below), or the --fts-catalog for a DuckLake target, e.g.
+-- memory.fts_pdf_fts_document_pages over memory.pdf_fts.document_pages.
+-- conjunctive := 1 requires every term on the page (default: any term, ranked).
+SELECT d.file_name, p.page_number, round(p.score, 2) AS score
+  FROM (SELECT document_id, page_number,
+               my_db.fts_pdf_docs_document_pages.match_bm25(page_id, 'hydraulic relief valve', conjunctive := 1) AS score
+          FROM my_db.pdf_docs.document_pages) p
+  JOIN my_db.pdf_docs.documents d USING (document_id)
+ WHERE p.score IS NOT NULL
+ ORDER BY p.score DESC
+ LIMIT 10;
+
 -- Substring search with a snippet (case-insensitive, no index needed)
 SELECT file_name, page_number, snippet
   FROM my_lake.pdf_docs.search_pages('relief valve')
